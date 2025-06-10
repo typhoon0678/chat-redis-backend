@@ -1,3 +1,56 @@
 spring:
   application:
-    name: chat-redis 
+    name: chat-redis
+  profiles:
+    default: dev
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:~/test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-name: kakao
+            client-id: eb785c5fca4b3e3f77ab76a418954044
+            client-secret: h9vHD2kH9oDERulxuK52S35rI8S3Hr1l
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:5173/api/login/oauth2/code/kakao
+            scope:
+              - profile_nickname
+              - account_email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+client:
+  url: http://localhost:3000
+
+jwt:
+  key: e1f1d002e0c6a38eedfa7c0bfcb2b13360bba805ae69d1680670dd07f6732682f7d8b6684819e1f7f06b681e1d892958b99fa75e0bcd651317a6f126b655a4d3fdcd83c9f3c5fc7523b7406a93bf45a43e787fa92363168862b5826769661686b2910a8f4847a441e492d17ba9a49b3401d69fa9ca466af2c71a1ff24cf6c8cb6bf401bd2b2cc89b24a33a56f543d128f09e0058ba52e593c2dff616117ac12364768d9761b93850233c5d8e9d18f5428f792ead416778c26db767aa81f02da4b2c6a01a0c8df514887b9a12ecae1bd2e1a468767e36aa09872cd0c6cc74ec5681d546d47d5c9099c5d8e51c5abd960bb40b98182f1ad593dae7f2cf41766212
+  expire:
+    access: 600 # 10분
+    refresh: 1209600 # 14일
+    renew: 259200 # 3일
+  domain: localhosts

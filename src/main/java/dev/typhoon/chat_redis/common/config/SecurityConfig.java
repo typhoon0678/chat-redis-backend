@@ -30,9 +30,11 @@ public class SecurityConfig {
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                String[] memberApi = { "/api/member/login" };
                 http
                                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                                                .anyRequest().permitAll())
+                                                .requestMatchers(memberApi).permitAll()
+                                                .anyRequest().authenticated())
 
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))

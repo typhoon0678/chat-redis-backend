@@ -31,9 +31,11 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 String[] memberApi = { "/api/member/login" };
+                String[] h2Console = { "/h2-console/**" };
                 http
                                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                                                 .requestMatchers(memberApi).permitAll()
+                                                .requestMatchers(h2Console).permitAll()
                                                 .anyRequest().authenticated())
 
                                 .csrf(AbstractHttpConfigurer::disable)

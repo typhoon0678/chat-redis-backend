@@ -116,7 +116,7 @@ public class JWTUtil implements InitializingBean {
         cookie.setMaxAge(maxAge);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
-        cookie.setSecure(true);
+        // cookie.setSecure(true);
         return cookie;
     }
 

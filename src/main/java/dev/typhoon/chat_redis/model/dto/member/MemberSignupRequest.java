@@ -1,6 +1,5 @@
 package dev.typhoon.chat_redis.model.dto.member;
 
-import dev.typhoon.chat_redis.model.constant.Platform;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberLoginRequest {
-
-    private Platform platform;
+public class MemberSignupRequest {
+    
     private String email;
     private String password;
-    private String accessToken;
 }

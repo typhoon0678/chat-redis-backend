@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import dev.typhoon.chat_redis.model.constant.Platform;
 import dev.typhoon.chat_redis.model.constant.Role;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -38,6 +39,13 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column
+    private String password;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Platform platform;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "member_roles", joinColumns = @JoinColumn(name = "member_id"))
     @Column(name = "role")
@@ -54,10 +62,12 @@ public class Member {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Member(Long id, String email, Set<Role> roles,
+    public Member(Long id, String email, String password, Platform platform, Set<Role> roles,
             boolean deleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
+        this.password = password;
+        this.platform = platform;
         this.roles = roles;
         this.deleted = deleted;
         this.createdAt = createdAt;

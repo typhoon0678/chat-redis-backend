@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Platform {
+    SERVER("SERVER"),
     KAKAO("KAKAO");
 
     private final String platform;
